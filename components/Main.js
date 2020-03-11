@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Image,
-  TouchableOpacity
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import Modal from "react-native-modal";
 
 export default class Main extends React.Component {
@@ -71,30 +64,13 @@ export default class Main extends React.Component {
             <Text style={styles.title}>Willkommen zu Whizz</Text>
             <Text style={styles.text}>Hier wird mit Avocados gehandelt.</Text>
             <Text style={styles.text}>Kurz: Avos </Text>
-            <View
-              style={{
-                position: "relative",
-                padding: 25,
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: 25
-              }}
-            >
+            <View style={styles.avoPointsView}>
               <Image
                 source={require(".././assets/avoInput.png")}
-                style={{
-                  position: "absolute"
-                }}
+                style={styles.avoInput}
                 resizeMode="contain"
               />
-              <Text
-                style={{
-                  position: "absolute",
-                  left: -12,
-                  fontWeight: "bold",
-                  fontSize: 20
-                }}
-              >
+              <Text style={styles.avoPointsText}>
                 +{this.state.defaultvalue}
               </Text>
             </View>
@@ -172,5 +148,19 @@ const styles = StyleSheet.create({
     left: -15,
     position: "absolute",
     transform: [{ rotate: "180deg" }]
+  },
+  avoInput: { position: "absolute" },
+  avoPointsView: {
+    position: "relative",
+    padding: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 25
+  },
+  avoPointsText: {
+    position: "absolute",
+    left: -12,
+    fontWeight: "bold",
+    fontSize: 20
   }
 });
