@@ -1,16 +1,39 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Image,
+  TouchableOpacity
+} from "react-native";
 import Modal from "react-native-modal";
 
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalVisible: true
+      isModalVisible: false
     };
   }
 
+  callAPI = async () => {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: { name: "registration" }
+    };
+    fetch(
+      "https://staging.api.whizz.app/api/v1/client/coin/price/get",
+      requestOptions
+    ).then(response => console.log("give it to me", response.json()));
+  };
+
   toggleModal = () => {
+    this.callAPI();
     this.setState({ isModalVisible: !this.state.isModalVisible });
   };
 
@@ -20,28 +43,41 @@ export default class Main extends React.Component {
       <View style={styles.container}>
         <Text>Whizz Coding Challenge</Text>
         <Button title="Show modal" onPress={this.toggleModal} />
-        <Modal style={{}} isVisible={this.state.isModalVisible}>
-          <View style={{ flex: 0.8, backgroundColor: "#fff", borderRadius: 5 }}>
-            <Text>Willkommen zu Whizz</Text>
-            <Text>Hier wird mit Avocados gehandelt. </Text>
-            <Text>Kurz: Avos </Text>
-            {/* <Image
-              style={{ width: 50, height: 50 }}
-              source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }}
-            /> */}
+        <Modal style={{}} isVisible={isModalVisible}>
+          <View style={styles.modal}>
             <Image
-              source={require(".././assets/100avos.png")}
-              style={{ width: 40, height: 40 }}
+              source={require(".././assets/border.png")}
+              style={styles.border1}
               resizeMode="contain"
             />
-            <Text>
+            <Image
+              source={require(".././assets/border.png")}
+              style={styles.border2}
+              resizeMode="contain"
+            />
+            <Text style={styles.title}>Willkommen zu Whizz</Text>
+            <Text style={styles.modalText}>
+              Hier wird mit Avocados gehandelt.{" "}
+            </Text>
+            <Text style={styles.modalText}>Kurz: Avos </Text>
+
+            <Image
+              source={require(".././assets/avoInput.png")}
+              style={{ width: 100, height: 100 }}
+              resizeMode="contain"
+            />
+            <Text style={styles.modalText}>
               Zum start erhalst du 100 Avos, damit kannst du schon mal 100
               Dokumente sehen.
             </Text>
-            <Text>
-              Avocados kannst du dir iber das Hochladen von Dokumenten verdienen{" "}
+            <Text style={styles.modalText}>
+              Avocados kannst du dir iber das Hochladen von Dokumenten verdienen
             </Text>
-            <Button title="Lohs gehts" onPress={this.toggleModal} />
+            <TouchableOpacity onPress={this.toggleModal}>
+              <View style={styles.modalButton}>
+                <Text>Lohs geht's!</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </Modal>
       </View>
@@ -54,5 +90,41 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center"
+  },
+  modal: {
+    flex: 0.7,
+    backgroundColor: "#fff",
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+    overflow: "hidden"
+  },
+  modalButton: {
+    backgroundColor: "#e0e0e0",
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 5,
+    borderColor: "#989898",
+    borderWidth: 2
+  },
+  title: { fontWeight: "bold" },
+  modalText: { textAlign: "center", marginBottom: 10 },
+  border1: {
+    width: 60,
+    height: 60,
+    top: -15,
+    right: -15,
+    position: "absolute"
+  },
+  border2: {
+    width: 60,
+    height: 60,
+    bottom: -15,
+    left: -15,
+    position: "absolute",
+    transform: [{ rotate: "180deg" }]
   }
 });
