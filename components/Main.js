@@ -31,7 +31,6 @@ export default class Main extends React.Component {
         }
       );
       const content = await rawResponse.json();
-
       console.log(content.data.defaultvalue);
 
       this.setState({ defaultvalue: content.data.defaultvalue }, () => {
@@ -49,8 +48,14 @@ export default class Main extends React.Component {
     const { isModalVisible } = this.state;
     return (
       <View style={styles.container}>
-        <Text>Whizz Coding Challenge</Text>
-        <Button title="Show modal" onPress={this.toggleModal} />
+        <Text style={styles.title}>Isardigital Coding Challenge</Text>
+        <Text style={styles.text}>Author - Wilfredo Casas</Text>
+
+        <TouchableOpacity onPress={this.openModal}>
+          <View style={styles.mainButton}>
+            <Text>Show Modal</Text>
+          </View>
+        </TouchableOpacity>
         <Modal style={{}} isVisible={isModalVisible}>
           <View style={styles.modal}>
             <Image
@@ -64,17 +69,15 @@ export default class Main extends React.Component {
               resizeMode="contain"
             />
             <Text style={styles.title}>Willkommen zu Whizz</Text>
-            <Text style={styles.modalText}>
-              Hier wird mit Avocados gehandelt.
-            </Text>
-            <Text style={styles.modalText}>Kurz: Avos </Text>
+            <Text style={styles.text}>Hier wird mit Avocados gehandelt.</Text>
+            <Text style={styles.text}>Kurz: Avos </Text>
             <View
               style={{
                 position: "relative",
                 padding: 25,
-                backgroundColor: "gray",
                 justifyContent: "center",
-                alignItems: "center"
+                alignItems: "center",
+                marginBottom: 25
               }}
             >
               <Image
@@ -84,15 +87,22 @@ export default class Main extends React.Component {
                 }}
                 resizeMode="contain"
               />
-              <Text style={{ position: "absolute" }}>
-                {this.state.defaultvalue}
+              <Text
+                style={{
+                  position: "absolute",
+                  left: -12,
+                  fontWeight: "bold",
+                  fontSize: 20
+                }}
+              >
+                +{this.state.defaultvalue}
               </Text>
             </View>
-            <Text style={styles.modalText}>
+            <Text style={styles.text}>
               Zum start erhalst du 100 Avos, damit kannst du schon mal 100
               Dokumente sehen.
             </Text>
-            <Text style={styles.modalText}>
+            <Text style={styles.text}>
               Avocados kannst du dir iber das Hochladen von Dokumenten verdienen
             </Text>
             <TouchableOpacity onPress={this.toggleModal}>
@@ -120,7 +130,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "relative",
-    overflow: "hidden"
+    overflow: "hidden",
+    paddingLeft: 32,
+    paddingRight: 32,
+    textAlign: "left"
   },
   modalButton: {
     backgroundColor: "#e0e0e0",
@@ -132,8 +145,19 @@ const styles = StyleSheet.create({
     borderColor: "#989898",
     borderWidth: 2
   },
+  mainButton: {
+    backgroundColor: "#97d27f",
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    borderRadius: 5,
+    borderColor: "#773b12",
+    borderWidth: 2
+  },
+
   title: { fontWeight: "bold" },
-  modalText: { textAlign: "center", marginBottom: 10 },
+  text: { marginBottom: 20 },
   border1: {
     width: 60,
     height: 60,
