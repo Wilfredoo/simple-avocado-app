@@ -18,18 +18,26 @@ export default class Main extends React.Component {
   }
 
   callAPI = async () => {
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: { name: "registration" }
-    };
-    fetch(
-      "https://staging.api.whizz.app/api/v1/client/coin/price/get",
-      requestOptions
-    ).then(response => console.log("give it to me", response.json()));
+    (async () => {
+      const rawResponse = await fetch(
+        "https://staging.api.whizz.app/api/v1/client/coin/price/get",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name: "registration" })
+        }
+      );
+      const content = await rawResponse.json();
+
+      console.log(content.data.defaultvalue);
+
+      this.setState({ defaultvalue: content.data.defaultvalue }, () => {
+        console.log("yes", this.state.defaultvalue);
+      });
+    })();
   };
 
   toggleModal = () => {
@@ -57,15 +65,29 @@ export default class Main extends React.Component {
             />
             <Text style={styles.title}>Willkommen zu Whizz</Text>
             <Text style={styles.modalText}>
-              Hier wird mit Avocados gehandelt.{" "}
+              Hier wird mit Avocados gehandelt.
             </Text>
             <Text style={styles.modalText}>Kurz: Avos </Text>
-
-            <Image
-              source={require(".././assets/avoInput.png")}
-              style={{ width: 100, height: 100 }}
-              resizeMode="contain"
-            />
+            <View
+              style={{
+                position: "relative",
+                padding: 25,
+                backgroundColor: "gray",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <Image
+                source={require(".././assets/avoInput.png")}
+                style={{
+                  position: "absolute"
+                }}
+                resizeMode="contain"
+              />
+              <Text style={{ position: "absolute" }}>
+                {this.state.defaultvalue}
+              </Text>
+            </View>
             <Text style={styles.modalText}>
               Zum start erhalst du 100 Avos, damit kannst du schon mal 100
               Dokumente sehen.
