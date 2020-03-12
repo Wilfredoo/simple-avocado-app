@@ -3,7 +3,7 @@
 ### Option A
 
 1. Download the Expo app
-2. Scan the QR code --> https://expo.io/@wilfredo789/isardigital-coding-challenge
+2. Scan the QR code --> https://exp.host/@wilfredo789/isardigital-coding-challenge
    - Hint: when on iOS, just use the regular camera to scan the code
 3. Relax and enjoy
 
