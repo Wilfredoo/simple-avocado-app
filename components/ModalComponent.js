@@ -51,11 +51,6 @@ export default function ModalComponent({
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  },
   modal: {
     flex: 0.7,
     backgroundColor: "#fff",
@@ -78,17 +73,6 @@ const styles = StyleSheet.create({
     borderColor: "#989898",
     borderWidth: 2
   },
-  mainButton: {
-    backgroundColor: "#97d27f",
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderRadius: 5,
-    borderColor: "#773b12",
-    borderWidth: 2
-  },
-
   title: { fontWeight: "bold", marginBottom: 20, fontSize: 20 },
   text: { marginBottom: 20 },
   border1: {
