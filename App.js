@@ -6,7 +6,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Main />
-      {/* <Text>aaa</Text> */}
     </View>
   );
 }

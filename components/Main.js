@@ -1,6 +1,6 @@
 import React from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import Modal from "react-native-modal";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import ModalComponent from ".././components/ModalComponent.js";
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -24,70 +24,36 @@ export default class Main extends React.Component {
         }
       );
       const content = await rawResponse.json();
-      console.log(content.data.defaultvalue);
 
-      this.setState({ defaultvalue: content.data.defaultvalue }, () => {
-        console.log("yes", this.state.defaultvalue);
-      });
+      this.setState({ defaultvalue: content.data.defaultvalue }, () => {});
     })();
   };
 
-  toggleModal = () => {
+  openModal = () => {
     this.callAPI();
-    this.setState({ isModalVisible: !this.state.isModalVisible });
+    this.setState({ isModalVisible: true });
+  };
+
+  closeModal = () => {
+    this.setState({ isModalVisible: false });
   };
 
   render() {
-    const { isModalVisible } = this.state;
+    const { isModalVisible, defaultvalue } = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Isardigital Coding Challenge</Text>
         <Text style={styles.text}>Author - Wilfredo Casas</Text>
-
         <TouchableOpacity onPress={this.openModal}>
           <View style={styles.mainButton}>
             <Text>Show Modal</Text>
           </View>
         </TouchableOpacity>
-        <Modal style={{}} isVisible={isModalVisible}>
-          <View style={styles.modal}>
-            <Image
-              source={require(".././assets/border.png")}
-              style={styles.border1}
-              resizeMode="contain"
-            />
-            <Image
-              source={require(".././assets/border.png")}
-              style={styles.border2}
-              resizeMode="contain"
-            />
-            <Text style={styles.title}>Willkommen zu Whizz</Text>
-            <Text style={styles.text}>Hier wird mit Avocados gehandelt.</Text>
-            <Text style={styles.text}>Kurz: Avos </Text>
-            <View style={styles.avoPointsView}>
-              <Image
-                source={require(".././assets/avoInput.png")}
-                style={styles.avoInput}
-                resizeMode="contain"
-              />
-              <Text style={styles.avoPointsText}>
-                +{this.state.defaultvalue}
-              </Text>
-            </View>
-            <Text style={styles.text}>
-              Zum start erhalst du 100 Avos, damit kannst du schon mal 100
-              Dokumente sehen.
-            </Text>
-            <Text style={styles.text}>
-              Avocados kannst du dir iber das Hochladen von Dokumenten verdienen
-            </Text>
-            <TouchableOpacity onPress={this.toggleModal}>
-              <View style={styles.modalButton}>
-                <Text>Lohs geht's!</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </Modal>
+        <ModalComponent
+          isModalVisible={isModalVisible}
+          defaultvalue={defaultvalue}
+          closeModal={this.closeModal}
+        />
       </View>
     );
   }
@@ -99,28 +65,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  modal: {
-    flex: 0.7,
-    backgroundColor: "#fff",
-    borderRadius: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    position: "relative",
-    overflow: "hidden",
-    paddingLeft: 32,
-    paddingRight: 32,
-    textAlign: "left"
-  },
-  modalButton: {
-    backgroundColor: "#e0e0e0",
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderRadius: 5,
-    borderColor: "#989898",
-    borderWidth: 2
-  },
+
   mainButton: {
     backgroundColor: "#97d27f",
     paddingLeft: 10,
@@ -132,35 +77,6 @@ const styles = StyleSheet.create({
     borderWidth: 2
   },
 
-  title: { fontWeight: "bold" },
-  text: { marginBottom: 20 },
-  border1: {
-    width: 60,
-    height: 60,
-    top: -15,
-    right: -15,
-    position: "absolute"
-  },
-  border2: {
-    width: 60,
-    height: 60,
-    bottom: -15,
-    left: -15,
-    position: "absolute",
-    transform: [{ rotate: "180deg" }]
-  },
-  avoInput: { position: "absolute" },
-  avoPointsView: {
-    position: "relative",
-    padding: 25,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 25
-  },
-  avoPointsText: {
-    position: "absolute",
-    left: -12,
-    fontWeight: "bold",
-    fontSize: 20
-  }
+  title: { fontWeight: "bold", marginBottom: 20, fontSize: 20 },
+  text: { marginBottom: 25 }
 });
