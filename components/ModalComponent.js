@@ -33,15 +33,15 @@ export default function ModalComponent({
             <Text style={styles.avoPointsText}>+{defaultvalue}</Text>
           </View>
           <Text style={styles.text}>
-            Zum start erhalst du 100 Avos, damit kannst du schon mal 100
+            Zum start erhältst du 100 Avos, damit kannst du schon mal 100
             Dokumente sehen.
           </Text>
           <Text style={styles.text}>
-            Avocados kannst du dir iber das Hochladen von Dokumenten verdienen
+            Avocados kannst du dir über das Hochladen von Dokumenten verdienen{" "}
           </Text>
           <TouchableOpacity onPress={closeModal}>
             <View style={styles.modalButton}>
-              <Text>Lohs geht's!</Text>
+              <Text>Los geht's!</Text>
             </View>
           </TouchableOpacity>
         </View>
